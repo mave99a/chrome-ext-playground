@@ -39,15 +39,19 @@
 - 获取当前活动 tab 的页面信息
 - 显示顺序（从上到下）：
   1. **选中内容**（如有，黄色高亮背景，限制 10k 字符）
-  2. **页面内容**（文本形式，可滚动区域，限制 50k 字符）
-  3. 标题 (Title)
-  4. URL
-  5. 语言 (Language)
-  6. 字符集 (Character Set)
-  7. 内容长度
-  8. Meta 信息（description, keywords, author）
-  9. 页面统计（links, images, scripts, forms, buttons, headings 数量）
-  10. **截图**（页面可视区域，放在最底部）
+  2. **OpenGraph 信息**（卡片形式展示，包含图片预览、标题、描述、URL、站点名、类型）
+     - 支持 `og:*` 标签
+     - 支持 `twitter:*` 标签
+     - 可展开查看所有属性原始值
+  3. **页面内容**（文本形式，可滚动区域，限制 50k 字符）
+  4. 标题 (Title)
+  5. URL
+  6. 语言 (Language)
+  7. 字符集 (Character Set)
+  8. 内容长度
+  9. Meta 信息（description, keywords, author）
+  10. 页面统计（links, images, scripts, forms, buttons, headings 数量）
+  11. **截图**（页面可视区域，放在最底部）
 
 ### 4. Tab Group 管理
 
@@ -133,7 +137,8 @@ chrome-ext/
 5. ✅ "Current Tab Info" 显示页面元信息
 6. ✅ "Current Tab Info" 显示页面文本内容（可滚动区域）
 7. ✅ "Current Tab Info" 显示选中内容（如有，黄色高亮）
-8. ✅ "Current Tab Info" 截图显示在最底部
-9. ✅ 新创建的 tab 自动加入 "demo" group
-10. ✅ Settings 开关可操作并持久化
-11. ✅ 无外部依赖，完全离线可用
+8. ✅ "Current Tab Info" 显示 OpenGraph 信息（卡片形式，含图片预览）
+9. ✅ "Current Tab Info" 截图显示在最底部
+10. ✅ 新创建的 tab 自动加入 "demo" group
+11. ✅ Settings 开关可操作并持久化
+12. ✅ 无外部依赖，完全离线可用

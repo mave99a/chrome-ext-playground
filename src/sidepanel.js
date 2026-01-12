@@ -201,13 +201,29 @@ function initButtons() {
 // Function to be injected into the page
 function extractPageInfo() {
   const meta = {};
+  const openGraph = {};
 
   // Get all meta tags
   document.querySelectorAll('meta').forEach(tag => {
-    const name = tag.getAttribute('name') || tag.getAttribute('property');
+    const name = tag.getAttribute('name');
+    const property = tag.getAttribute('property');
     const content = tag.getAttribute('content');
-    if (name && content) {
-      meta[name] = content;
+
+    if (content) {
+      // Extract OpenGraph tags
+      if (property && property.startsWith('og:')) {
+        const ogKey = property.substring(3); // Remove 'og:' prefix
+        openGraph[ogKey] = content;
+      }
+      // Extract Twitter Card tags
+      else if (name && name.startsWith('twitter:')) {
+        const twitterKey = 'twitter_' + name.substring(8);
+        openGraph[twitterKey] = content;
+      }
+      // Regular meta tags
+      else if (name || property) {
+        meta[name || property] = content;
+      }
     }
   });
 
@@ -246,7 +262,7 @@ function extractPageInfo() {
     selection: selection.substring(0, 10000) // Limit selection to 10k chars
   };
 
-  return { meta, stats, docInfo, content };
+  return { meta, stats, docInfo, content, openGraph };
 }
 
 function renderBasicTabInfo(tab, screenshotUrl) {
@@ -305,7 +321,71 @@ function renderPageInfo(tab, info, screenshotUrl) {
     `;
   }
 
-  // 2. Add page content section
+  // 2. Add OpenGraph section
+  if (info.openGraph && Object.keys(info.openGraph).length > 0) {
+    const og = info.openGraph;
+    html += `
+      <div class="content-section og-section">
+        <div class="content-header">
+          <span class="info-label">OpenGraph</span>
+          <span class="content-length">${Object.keys(og).length} properties</span>
+        </div>
+        <div class="og-card">
+    `;
+
+    // Show OG image if available
+    if (og.image) {
+      html += `<div class="og-image"><img src="${og.image}" alt="OG Image" onerror="this.style.display='none'"></div>`;
+    }
+
+    html += `<div class="og-details">`;
+
+    // OG Title
+    if (og.title) {
+      html += `<div class="og-title">${og.title}</div>`;
+    }
+
+    // OG Description
+    if (og.description) {
+      html += `<div class="og-description">${og.description}</div>`;
+    }
+
+    // OG URL
+    if (og.url) {
+      html += `<div class="og-url">${og.url}</div>`;
+    }
+
+    // OG Site Name
+    if (og.site_name) {
+      html += `<div class="og-site">${og.site_name}</div>`;
+    }
+
+    // OG Type
+    if (og.type) {
+      html += `<div class="og-type">Type: ${og.type}</div>`;
+    }
+
+    html += `</div>`; // Close og-details
+
+    // Show all OG properties in a collapsible raw view
+    html += `
+      <details class="og-raw">
+        <summary>All Properties</summary>
+        <div class="og-raw-content">
+    `;
+    for (const [key, value] of Object.entries(og)) {
+      const escapedValue = value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      html += `<div class="og-raw-item"><span class="og-raw-key">${key}:</span> ${escapedValue}</div>`;
+    }
+    html += `
+        </div>
+      </details>
+    `;
+
+    html += `</div></div>`; // Close og-card and og-section
+  }
+
+  // 3. Add page content section
   if (info.content) {
     const escapedText = info.content.text
       .replace(/&/g, '&amp;')
@@ -323,7 +403,7 @@ function renderPageInfo(tab, info, screenshotUrl) {
     `;
   }
 
-  // 3. Add page info
+  // 4. Add page info
   html += `
     <div class="info-item">
       <span class="info-label">Title</span>
