@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Demo Side Panel",
+  "version": "1.0.0",
+  "description": "A demo Chrome extension with side panel",
+  "permissions": [
+    "sidePanel",
+    "tabs",
+    "tabGroups",
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Open Side Panel"
+  }
+}

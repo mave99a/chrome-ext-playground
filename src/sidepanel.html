@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Side Panel</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="home">Home</button>
+      <button class="tab-btn" data-tab="about">About</button>
+      <button class="tab-btn" data-tab="settings">Settings</button>
+    </nav>
+
+    <!-- Tab Contents -->
+    <div class="tab-content">
+      <!-- Home Tab -->
+      <div id="home" class="tab-panel active">
+        <h2>Home</h2>
+        <div class="button-group">
+          <button id="btn-team" class="action-btn">
+            <span class="btn-icon">🌐</span>
+            <span class="btn-text">Open Team Portal</span>
+            <span class="btn-desc">team.arcblock.io</span>
+          </button>
+
+          <button id="btn-internal" class="action-btn">
+            <span class="btn-icon">📄</span>
+            <span class="btn-text">Internal Demo Page</span>
+            <span class="btn-desc">Open built-in page</span>
+          </button>
+
+          <button id="btn-pageinfo" class="action-btn">
+            <span class="btn-icon">ℹ️</span>
+            <span class="btn-text">Current Tab Info</span>
+            <span class="btn-desc">Show page metadata</span>
+          </button>
+        </div>
+
+        <!-- Page Info Display Area -->
+        <div id="page-info" class="page-info hidden">
+          <h3>Page Information</h3>
+          <div id="page-info-content"></div>
+        </div>
+      </div>
+
+      <!-- About Tab -->
+      <div id="about" class="tab-panel">
+        <h2>About</h2>
+        <div class="about-content">
+          <div class="about-section">
+            <h3>Demo Side Panel Extension</h3>
+            <p>This is a demonstration Chrome extension showcasing the Side Panel API introduced in Chrome 114.</p>
+          </div>
+
+          <div class="about-section">
+            <h3>Features</h3>
+            <ul>
+              <li>Side panel interface with tabbed navigation</li>
+              <li>Quick access to external websites</li>
+              <li>Internal page viewer</li>
+              <li>Current tab metadata extraction</li>
+            </ul>
+          </div>
+
+          <div class="about-section">
+            <h3>Technical Details</h3>
+            <ul>
+              <li>Manifest Version: 3</li>
+              <li>APIs Used: sidePanel, tabs, scripting</li>
+              <li>No external dependencies</li>
+            </ul>
+          </div>
+
+          <div class="about-section">
+            <h3>Version</h3>
+            <p>v1.0.0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div id="settings" class="tab-panel">
+        <h2>Settings</h2>
+        <div class="settings-content">
+          <div class="setting-group">
+            <h3>General</h3>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Dark Mode</span>
+                <span class="setting-desc">Enable dark color theme</span>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="setting-darkmode">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Notifications</span>
+                <span class="setting-desc">Show desktop notifications</span>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="setting-notifications" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h3>Behavior</h3>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Auto-open Panel</span>
+                <span class="setting-desc">Open panel on browser start</span>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="setting-autoopen">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Remember Tab</span>
+                <span class="setting-desc">Remember last active tab</span>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="setting-remembertab" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Confirm Actions</span>
+                <span class="setting-desc">Ask before opening new tabs</span>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="setting-confirm">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h3>Display</h3>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Compact Mode</span>
+                <span class="setting-desc">Use smaller UI elements</span>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="setting-compact">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Show Icons</span>
+                <span class="setting-desc">Display button icons</span>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="setting-icons" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

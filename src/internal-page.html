@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Internal demo page for the Chrome extension">
+  <meta name="author" content="Demo Extension">
+  <meta name="keywords" content="demo, extension, chrome, internal page">
+  <title>Internal Demo Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card p {
+      line-height: 1.7;
+      opacity: 0.9;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .feature-desc {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 16px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .code-block {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+
+    .interactive-demo {
+      margin-top: 16px;
+    }
+
+    .demo-button {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .demo-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    #demo-output {
+      margin-top: 16px;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      min-height: 60px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Internal Demo Page</h1>
+      <p class="subtitle">This page is bundled within the Chrome extension</p>
+    </header>
+
+    <div class="card">
+      <h2>Welcome</h2>
+      <p>
+        This is an internal page that comes packaged with the extension.
+        It demonstrates that extensions can include their own HTML pages
+        that users can access through the extension's functionality.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Features</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">🎨</div>
+          <div class="feature-title">Beautiful UI</div>
+          <div class="feature-desc">Modern glassmorphism design</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-title">Fast</div>
+          <div class="feature-desc">No external dependencies</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-title">Secure</div>
+          <div class="feature-desc">Runs locally in extension</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📱</div>
+          <div class="feature-title">Responsive</div>
+          <div class="feature-desc">Works on all screen sizes</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Statistics Demo</h2>
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-value" id="stat-time">--:--</div>
+          <div class="stat-label">Current Time</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-date">--</div>
+          <div class="stat-label">Today's Date</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-random">--</div>
+          <div class="stat-label">Random Number</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Interactive Demo</h2>
+      <p>Try clicking the buttons below to see interactive responses:</p>
+      <div class="interactive-demo">
+        <button class="demo-button" id="btn-alert">Show Alert</button>
+        <button class="demo-button" id="btn-quote">Random Quote</button>
+        <button class="demo-button" id="btn-color">Change Color</button>
+      </div>
+      <div id="demo-output">Click a button to see the output here...</div>
+    </div>
+
+    <div class="card">
+      <h2>Technical Info</h2>
+      <p>This page URL uses the special <code>chrome-extension://</code> protocol:</p>
+      <div class="code-block" id="page-url">Loading...</div>
+    </div>
+
+    <footer>
+      <p>Demo Side Panel Extension v1.0.0</p>
+    </footer>
+  </div>
+
+  <script src="internal-page.js"></script>
+</body>
+</html>
