@@ -46,6 +46,7 @@
   - 内容长度
   - Meta 信息（description, keywords, author）
   - 页面统计（links, images, scripts, forms, buttons, headings 数量）
+  - **页面内容**（文本形式，可滚动区域，限制 50k 字符）
 
 ### 4. Tab Group 管理
 
@@ -109,13 +110,17 @@
 
 ```
 chrome-ext/
-├── manifest.json          # 扩展配置
-├── background.js          # Service Worker
-├── sidepanel.html         # 侧栏主界面
-├── sidepanel.css          # 侧栏样式
-├── sidepanel.js           # 侧栏逻辑
-├── internal-page.html     # 内置 demo 页面
-└── internal-page.js       # 内置页面脚本
+├── README.md              # 项目说明
+├── src/                   # 扩展源码（加载扩展时选择此目录）
+│   ├── manifest.json      # 扩展配置
+│   ├── background.js      # Service Worker
+│   ├── sidepanel.html     # 侧栏主界面
+│   ├── sidepanel.css      # 侧栏样式
+│   ├── sidepanel.js       # 侧栏逻辑
+│   ├── internal-page.html # 内置 demo 页面
+│   └── internal-page.js   # 内置页面脚本
+└── intent/                # 需求文档
+    └── task_intent.md     # 本文件
 ```
 
 ## 验收标准
@@ -125,6 +130,7 @@ chrome-ext/
 3. ✅ "Open Team Portal" 在当前窗口打开/切换 team.arcblock.io
 4. ✅ "Internal Demo Page" 打开内置页面
 5. ✅ "Current Tab Info" 显示截图和页面元信息
-6. ✅ 新创建的 tab 自动加入 "demo" group
-7. ✅ Settings 开关可操作并持久化
-8. ✅ 无外部依赖，完全离线可用
+6. ✅ "Current Tab Info" 显示页面文本内容（可滚动区域）
+7. ✅ 新创建的 tab 自动加入 "demo" group
+8. ✅ Settings 开关可操作并持久化
+9. ✅ 无外部依赖，完全离线可用

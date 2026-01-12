@@ -236,7 +236,13 @@ function extractPageInfo() {
     contentLength: document.body.innerText.length
   };
 
-  return { meta, stats, docInfo };
+  // Get page content (text and HTML)
+  const content = {
+    text: document.body.innerText.substring(0, 50000), // Limit to 50k chars
+    html: document.documentElement.outerHTML.substring(0, 100000) // Limit to 100k chars
+  };
+
+  return { meta, stats, docInfo, content };
 }
 
 function renderBasicTabInfo(tab, screenshotUrl) {
@@ -351,6 +357,24 @@ function renderPageInfo(tab, info, screenshotUrl) {
       </span>
     </div>
   `;
+
+  // Add page content section
+  if (info.content) {
+    const escapedText = info.content.text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    html += `
+      <div class="content-section">
+        <div class="content-header">
+          <span class="info-label">Page Content (Text)</span>
+          <span class="content-length">${info.content.text.length.toLocaleString()} chars</span>
+        </div>
+        <div class="content-box">${escapedText}</div>
+      </div>
+    `;
+  }
 
   return html;
 }
