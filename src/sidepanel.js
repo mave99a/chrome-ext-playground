@@ -236,29 +236,21 @@ function extractPageInfo() {
     contentLength: document.body.innerText.length
   };
 
+  // Get selected text
+  const selection = window.getSelection().toString();
+
   // Get page content (text and HTML)
   const content = {
     text: document.body.innerText.substring(0, 50000), // Limit to 50k chars
-    html: document.documentElement.outerHTML.substring(0, 100000) // Limit to 100k chars
+    html: document.documentElement.outerHTML.substring(0, 100000), // Limit to 100k chars
+    selection: selection.substring(0, 10000) // Limit selection to 10k chars
   };
 
   return { meta, stats, docInfo, content };
 }
 
 function renderBasicTabInfo(tab, screenshotUrl) {
-  let html = '';
-
-  // Add screenshot if available
-  if (screenshotUrl) {
-    html += `
-      <div class="info-item screenshot-container">
-        <span class="info-label">Screenshot</span>
-        <img src="${screenshotUrl}" class="screenshot" alt="Page screenshot">
-      </div>
-    `;
-  }
-
-  html += `
+  let html = `
     <div class="info-item">
       <span class="info-label">Title</span>
       <span class="info-value">${tab.title || 'N/A'}</span>
@@ -277,15 +269,7 @@ function renderBasicTabInfo(tab, screenshotUrl) {
     </div>
   `;
 
-  return html;
-}
-
-function renderPageInfo(tab, info, screenshotUrl) {
-  const { meta, stats, docInfo } = info;
-
-  let html = '';
-
-  // Add screenshot if available
+  // Add screenshot at the bottom
   if (screenshotUrl) {
     html += `
       <div class="info-item screenshot-container">
@@ -295,6 +279,51 @@ function renderPageInfo(tab, info, screenshotUrl) {
     `;
   }
 
+  return html;
+}
+
+function renderPageInfo(tab, info, screenshotUrl) {
+  const { meta, stats, docInfo } = info;
+
+  let html = '';
+
+  // 1. Add selected content section (if any)
+  if (info.content && info.content.selection) {
+    const escapedSelection = info.content.selection
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    html += `
+      <div class="content-section selection-section">
+        <div class="content-header">
+          <span class="info-label">Selected Content</span>
+          <span class="content-length">${info.content.selection.length.toLocaleString()} chars</span>
+        </div>
+        <div class="content-box selection-box">${escapedSelection}</div>
+      </div>
+    `;
+  }
+
+  // 2. Add page content section
+  if (info.content) {
+    const escapedText = info.content.text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    html += `
+      <div class="content-section">
+        <div class="content-header">
+          <span class="info-label">Page Content (Text)</span>
+          <span class="content-length">${info.content.text.length.toLocaleString()} chars</span>
+        </div>
+        <div class="content-box">${escapedText}</div>
+      </div>
+    `;
+  }
+
+  // 3. Add page info
   html += `
     <div class="info-item">
       <span class="info-label">Title</span>
@@ -358,20 +387,12 @@ function renderPageInfo(tab, info, screenshotUrl) {
     </div>
   `;
 
-  // Add page content section
-  if (info.content) {
-    const escapedText = info.content.text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
-
+  // 4. Add screenshot at the bottom
+  if (screenshotUrl) {
     html += `
-      <div class="content-section">
-        <div class="content-header">
-          <span class="info-label">Page Content (Text)</span>
-          <span class="content-length">${info.content.text.length.toLocaleString()} chars</span>
-        </div>
-        <div class="content-box">${escapedText}</div>
+      <div class="info-item screenshot-container">
+        <span class="info-label">Screenshot</span>
+        <img src="${screenshotUrl}" class="screenshot" alt="Page screenshot">
       </div>
     `;
   }

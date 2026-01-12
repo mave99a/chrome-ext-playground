@@ -37,16 +37,17 @@
 
 #### 按钮 3: Current Tab Info
 - 获取当前活动 tab 的页面信息
-- 显示内容：
-  - **截图**（页面可视区域）
-  - 标题 (Title)
-  - URL
-  - 语言 (Language)
-  - 字符集 (Character Set)
-  - 内容长度
-  - Meta 信息（description, keywords, author）
-  - 页面统计（links, images, scripts, forms, buttons, headings 数量）
-  - **页面内容**（文本形式，可滚动区域，限制 50k 字符）
+- 显示顺序（从上到下）：
+  1. **选中内容**（如有，黄色高亮背景，限制 10k 字符）
+  2. **页面内容**（文本形式，可滚动区域，限制 50k 字符）
+  3. 标题 (Title)
+  4. URL
+  5. 语言 (Language)
+  6. 字符集 (Character Set)
+  7. 内容长度
+  8. Meta 信息（description, keywords, author）
+  9. 页面统计（links, images, scripts, forms, buttons, headings 数量）
+  10. **截图**（页面可视区域，放在最底部）
 
 ### 4. Tab Group 管理
 
@@ -129,8 +130,10 @@ chrome-ext/
 2. ✅ 3 个 Tab 可正常切换
 3. ✅ "Open Team Portal" 在当前窗口打开/切换 team.arcblock.io
 4. ✅ "Internal Demo Page" 打开内置页面
-5. ✅ "Current Tab Info" 显示截图和页面元信息
+5. ✅ "Current Tab Info" 显示页面元信息
 6. ✅ "Current Tab Info" 显示页面文本内容（可滚动区域）
-7. ✅ 新创建的 tab 自动加入 "demo" group
-8. ✅ Settings 开关可操作并持久化
-9. ✅ 无外部依赖，完全离线可用
+7. ✅ "Current Tab Info" 显示选中内容（如有，黄色高亮）
+8. ✅ "Current Tab Info" 截图显示在最底部
+9. ✅ 新创建的 tab 自动加入 "demo" group
+10. ✅ Settings 开关可操作并持久化
+11. ✅ 无外部依赖，完全离线可用

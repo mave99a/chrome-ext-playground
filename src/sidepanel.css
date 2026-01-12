@@ -193,6 +193,17 @@ h2 {
   color: #333;
 }
 
+/* Selected content styling */
+.selection-section {
+  margin-bottom: 16px;
+}
+
+.selection-box {
+  background: #fff8e1;
+  border-color: #ffc107;
+  max-height: 200px;
+}
+
 .info-item:last-child {
   margin-bottom: 0;
   padding-bottom: 0;
